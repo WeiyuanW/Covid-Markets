@@ -1,0 +1,58 @@
+# Data Merging in Pandas
+
+import seaborn as sns
+import pandas as pd
+import numpy as np
+
+nsd = pd.read_csv('Nasdaq.csv')
+nsd.Date = pd.to_datetime(nsd.Date)
+nsd.head(3)
+
+btc = pd.read_csv('BTC-USD.csv')
+btc.Date = pd.to_datetime(btc.Date)
+btc.head(3)
+
+cov = pd.read_csv('COVID_data_2020-07-27.csv')
+cov = cov.rename(columns={"date":"Date"})
+cov.Date = pd.to_datetime(cov.Date)
+del cov["Unnamed: 0"]
+cov.head(3)
+
+us = cov.loc[cov['country'] == 'USA']
+us.head(3)
+
+df_nsd = pd.merge(nsd,us,on='Date', how='inner')
+df_nsd.head(3)
+
+df_btc = pd.merge(btc,us,on='Date', how='inner')
+df_btc.head(3)
+
+gb = cov.groupby('Date').sum()
+gb.head(3)
+
+gb_new_cases = pd.DataFrame({'Date':gb.index, 'global_new_cases':gb.new_cases.values})
+gb_new_cases.head(3)
+
+gb_total_cases = pd.DataFrame({'Date':gb.index, 'global_total_cases':gb.cases.values})
+gb_total_cases.head(3)
+
+gb_new_deaths = pd.DataFrame({'Date':gb.index, 'global_new_deaths':gb.new_deaths.values})
+gb_new_deaths.head(3)
+
+gb_total_deaths = pd.DataFrame({'Date':gb.index, 'global_total_deaths':gb.deaths.values})
+gb_total_deaths.head(3)
+
+df_nsd = pd.merge(df_nsd,gb_new_cases,on='Date', how='inner')
+df_nsd = pd.merge(df_nsd,gb_total_cases,on='Date', how='inner')
+df_nsd = pd.merge(df_nsd,gb_new_deaths,on='Date', how='inner')
+df_nsd = pd.merge(df_nsd,gb_total_deaths,on='Date', how='inner')
+df_nsd.head(3)
+
+df_btc = pd.merge(df_btc,gb_new_cases,on='Date', how='inner')
+df_btc = pd.merge(df_btc,gb_total_cases,on='Date', how='inner')
+df_btc = pd.merge(df_btc,gb_new_deaths,on='Date', how='inner')
+df_btc = pd.merge(df_btc,gb_total_deaths,on='Date', how='inner')
+df_btc.head(3)
+
+df_nsd.to_excel("Nasdaq vs Covid.xlsx") 
+df_btc.to_excel("Bitcoin vs Covid.xlsx")  
