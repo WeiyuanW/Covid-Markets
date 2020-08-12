@@ -1,0 +1,49 @@
+import seaborn as sns
+import pandas as pd
+import numpy as np
+
+nsd = pd.read_excel('Nasdaq vs Covid.xlsx')
+nsd["price_change"] = (nsd.Close - nsd.Open)/nsd.Open
+
+btc = pd.read_excel('Bitcoin vs Covid.xlsx')
+btc["price_change"] = (btc.Close - btc.Open)/btc.Open
+
+ev = pd.read_excel('event list.xlsx')
+
+ev_nsd = pd.merge(nsd,ev,on='Date',how='inner')
+ev_nsd.head()
+
+n_days = len(ev_nsd.index)
+
+no_ev = pd.concat([nsd.Date, ev_nsd.Date, ev_nsd.Date]).drop_duplicates(keep=False)
+no_ev_nsd = pd.DataFrame(no_ev)
+
+no_ev_nsd = pd.merge(nsd,no_ev_nsd,on='Date',how='inner')
+
+no_ev_nsd = no_ev_nsd.sample(n = n_days, random_state = 1234)
+no_ev_nsd = no_ev_nsd.sort_values(by ='Date')
+no_ev_nsd = no_ev_nsd.reset_index(drop = True) 
+no_ev_nsd.head()
+
+ev_nsd.to_excel("Event days Nasdaq data.xlsx") 
+no_ev_nsd.to_excel("No Event days Nasdaq data.xlsx") 
+
+Bitcoin:
+
+ev_btc = pd.merge(btc,ev,on='Date',how='inner')
+ev_btc.head()
+
+n_days = len(ev_btc.index)
+
+no_ev = pd.concat([btc.Date, ev_btc.Date, ev_btc.Date]).drop_duplicates(keep=False)
+no_ev_btc = pd.DataFrame(no_ev)
+
+no_ev_btc = pd.merge(btc,no_ev_btc,on='Date',how='inner')
+
+no_ev_btc = no_ev_btc.sample(n = n_days, random_state = 1234)
+no_ev_btc = no_ev_btc.sort_values(by ='Date')
+no_ev_btc = no_ev_btc.reset_index(drop = True) 
+no_ev_btc.head()
+
+ev_btc.to_excel("Event days Bitcoin data.xlsx") 
+no_ev_btc.to_excel("No Event days Bitcoin data.xlsx") 
