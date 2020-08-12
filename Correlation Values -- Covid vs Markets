@@ -1,0 +1,58 @@
+#import libraries
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+NC = pd.read_excel('Nasdaq vs Covid.xlsx')
+NC.head(3)
+
+## found: https://medium.com/@sebastiannorena/finding-correlation-between-many-variables-multidimensional-dataset-with-python-5deb3f39ffb3
+## this is just for reference. do not use
+corr =NC.corr()
+fig = plt.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(corr,cmap='coolwarm', vmin=-1, vmax=1)
+fig.colorbar(cax)
+ticks = np.arange(0,len(NC.columns),1)
+ax.set_xticks(ticks)
+plt.xticks(rotation=90)
+ax.set_yticks(ticks)
+ax.set_xticklabels(NC.columns)
+ax.set_yticklabels(NC.columns)
+plt.show()
+
+##correlation matrix
+corrMatrixNC = NC.corr()
+corrMatrixNC
+
+corrMatrixNC.to_excel("Nasdaq vs Covid corr.xlsx")
+
+sns.heatmap(corrMatrixNC, annot=False) ## if annot=True, it shows numbers (too crowded)
+plt.show()
+
+BC = pd.read_excel('Bitcoin vs Covid.xlsx')
+BC.head(3)
+
+##correlation matrix
+corrMatrixBC = BC.corr()
+corrMatrixBC
+
+corrMatrixBC.to_excel("Bitcoin vs Covid corr.xlsx")
+
+## First option
+fig = plt.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(corr,cmap='coolwarm', vmin=-1, vmax=1)
+fig.colorbar(cax)
+ticks = np.arange(0,len(BC.columns),1)
+ax.set_xticks(ticks)
+plt.xticks(rotation=90)
+ax.set_yticks(ticks)
+ax.set_xticklabels(BC.columns)
+ax.set_yticklabels(BC.columns)
+plt.show()
+
+##second option. also need negative values
+sns.heatmap(corrMatrixBC, annot=False) ## if annot=True, it shows numbers (too crowded)
+plt.show()
