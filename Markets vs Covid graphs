@@ -1,0 +1,794 @@
+import seaborn as sns
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import pearsonr
+from datetime import datetime
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()
+%matplotlib inline
+
+nsd = pd.read_excel('Nasdaq vs Covid.xlsx')
+nsd.head(3)
+
+btc = pd.read_excel('Bitcoin vs Covid.xlsx')
+btc.head(3)
+
+events = pd.read_excel('event list.xlsx')
+ev = events.Date
+
+# Nasdaq closing & Covid
+
+# Nasdaq close vs US new cases
+
+x = nsd['Date']
+y1 = nsd['Close']
+y2 = nsd['new_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US new cases', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.new_cases.min()
+y_max = nsd.new_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Close vs US COVID new cases')
+ax1.set_ylabel('Nasdaq Points')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq close vs Global new cases
+
+x = nsd['Date']
+y1 = nsd['Close']
+y2 = nsd['global_new_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global new cases', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.global_new_cases.min()
+y_max = nsd.global_new_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Close vs Global COVID new cases')
+ax1.set_ylabel('Nasdaq Points')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq close vs US new deaths
+
+x = nsd['Date']
+y1 = nsd['Close']
+y2 = nsd['new_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US new deaths', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.new_deaths.min()
+y_max = nsd.new_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Close vs US COVID new deaths')
+ax1.set_ylabel('Nasdaq Points')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq close vs Global new deaths
+
+x = nsd['Date']
+y1 = nsd['Close']
+y2 = nsd['global_new_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global new deaths', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.global_new_deaths.min()
+y_max = nsd.global_new_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Close vs Global COVID new deaths')
+ax1.set_ylabel('Nasdaq Points')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq close vs US total cases
+
+x = nsd['Date']
+y1 = nsd['Close']
+y2 = nsd['cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US total cases', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.cases.min()
+y_max = nsd.cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Close vs US COVID total cases')
+ax1.set_ylabel('Nasdaq Points')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq close vs Global total cases
+
+x = nsd['Date']
+y1 = nsd['Close']
+y2 = nsd['global_total_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global total cases', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.global_total_cases.min()
+y_max = nsd.global_total_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Close vs Globle COVID total cases')
+ax1.set_ylabel('Nasdaq Points')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq close vs US total deaths
+
+x = nsd['Date']
+y1 = nsd['Close']
+y2 = nsd['deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US total deaths', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.deaths.min()
+y_max = nsd.deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Close vs US COVID total deaths')
+ax1.set_ylabel('Nasdaq Points')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq close vs Global total deaths
+
+x = nsd['Date']
+y1 = nsd['Close']
+y2 = nsd['global_total_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global total deaths', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.global_total_deaths.min()
+y_max = nsd.global_total_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Close vs Global COVID total deaths')
+ax1.set_ylabel('Nasdaq Points')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq volume & Covid
+
+# Nasdaq volume vs US new cases
+
+x = nsd['Date']
+y1 = nsd['Volume']
+y2 = nsd['new_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US new cases', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.new_cases.min()
+y_max = nsd.new_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Volume vs US COVID new cases')
+ax1.set_ylabel('Nasdaq Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq volume vs Global new cases
+
+x = nsd['Date']
+y1 = nsd['Volume']
+y2 = nsd['global_new_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global new cases', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.global_new_cases.min()
+y_max = nsd.global_new_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Volume vs Global COVID new cases')
+ax1.set_ylabel('Nasdaq Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq volume vs US new deaths
+
+x = nsd['Date']
+y1 = nsd['Volume']
+y2 = nsd['new_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US new deaths', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.new_deaths.min()
+y_max = nsd.new_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Volume vs US COVID new deaths')
+ax1.set_ylabel('Nasdaq Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq volume vs Global new deaths
+
+x = nsd['Date']
+y1 = nsd['Volume']
+y2 = nsd['global_new_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global new deaths', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.global_new_deaths.min()
+y_max = nsd.global_new_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Volume vs Global COVID new deaths')
+ax1.set_ylabel('Nasdaq Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq volume vs US total cases
+
+x = nsd['Date']
+y1 = nsd['Volume']
+y2 = nsd['cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US total cases', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.cases.min()
+y_max = nsd.cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Volume vs US COVID total cases')
+ax1.set_ylabel('Nasdaq Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq volume vs Global total cases
+
+x = nsd['Date']
+y1 = nsd['Volume']
+y2 = nsd['global_total_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global total cases', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.global_total_cases.min()
+y_max = nsd.global_total_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Volume vs Globle COVID total cases')
+ax1.set_ylabel('Nasdaq Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq volume vs US total deaths
+
+x = nsd['Date']
+y1 = nsd['Volume']
+y2 = nsd['deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US total deaths', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.deaths.min()
+y_max = nsd.deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Volume vs US COVID total deaths')
+ax1.set_ylabel('Nasdaq Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Nasdaq volume vs Global total deaths
+
+x = nsd['Date']
+y1 = nsd['Volume']
+y2 = nsd['global_total_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Nasdaq daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global total deaths', color = 'orange')
+g = plt.plot()
+
+y_min = nsd.global_total_deaths.min()
+y_max = nsd.global_total_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Nasdaq Volume vs Global COVID total deaths')
+ax1.set_ylabel('Nasdaq Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin closing & Covid
+
+# Bitcoin close vs US new cases 
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['new_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US new cases', color = 'orange')
+g = plt.plot()
+
+y_min = btc.new_cases.min()
+y_max = btc.new_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Close vs US COVID new cases')
+ax1.set_ylabel('Price($USD)')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin close vs Globel new cases 
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['global_new_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global new cases', color = 'orange')
+g = plt.plot()
+
+y_min = btc.global_new_cases.min()
+y_max = btc.global_new_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Close vs Global COVID new cases')
+ax1.set_ylabel('Price($USD)')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin daily close vs US new deaths 
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['new_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US new deaths', color = 'orange')
+g = plt.plot()
+
+y_min = btc.new_deaths.min()
+y_max = btc.new_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Close vs US COVID new deaths')
+ax1.set_ylabel('Price($USD)')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin daily close vs Global new deaths 
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['global_new_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global new deaths', color = 'orange')
+g = plt.plot()
+
+y_min = btc.global_new_deaths.min()
+y_max = btc.global_new_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Close vs Global COVID new deaths')
+ax1.set_ylabel('Price($USD)')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin closing price vs US total cases 
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US total cases', color = 'orange')
+g = plt.plot()
+
+y_min = btc.cases.min()
+y_max = btc.cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Close vs US COVID total cases')
+ax1.set_ylabel('Price($USD)')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin closing price vs Globle total cases 
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['global_total_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global total cases', color = 'orange')
+g = plt.plot()
+
+y_min = btc.global_total_cases.min()
+y_max = btc.global_total_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Close vs Globle COVID total cases')
+ax1.set_ylabel('Price($USD)')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin daily close vs number of US total deaths
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US total deaths', color = 'orange')
+g = plt.plot()
+
+y_min = btc.deaths.min()
+y_max = btc.deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Close vs US COVID total deaths')
+ax1.set_ylabel('Price($USD)')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin daily close vs number of Globally total deaths
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['global_total_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily closing', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global total deaths', color = 'orange')
+g = plt.plot()
+
+y_min = btc.global_total_deaths.min()
+y_max = btc.global_total_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Close vs Global COVID total deaths')
+ax1.set_ylabel('Price($USD)')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin volume & Covid
+
+# Bitcoin volume vs US new cases
+
+x = btc['Date']
+y1 = btc['Volume']
+y2 = btc['new_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US new cases', color = 'orange')
+g = plt.plot()
+
+y_min = btc.new_cases.min()
+y_max = btc.new_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Volume vs US COVID new cases')
+ax1.set_ylabel('Bitcoin Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin volume vs Global new cases
+
+x = btc['Date']
+y1 = btc['Volume']
+y2 = btc['global_new_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global new cases', color = 'orange')
+g = plt.plot()
+
+y_min = btc.global_new_cases.min()
+y_max = btc.global_new_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Volume vs Global COVID new cases')
+ax1.set_ylabel('Bitcoin Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin volume vs US new deaths
+
+x = btc['Date']
+y1 = btc['Volume']
+y2 = btc['new_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US new deaths', color = 'orange')
+g = plt.plot()
+
+y_min = btc.new_deaths.min()
+y_max = btc.new_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Volume vs US COVID new deaths')
+ax1.set_ylabel('Bitcoin Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin volume vs Global new deaths
+
+x = btc['Date']
+y1 = btc['Volume']
+y2 = btc['global_new_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global new deaths', color = 'orange')
+g = plt.plot()
+
+y_min = btc.global_new_deaths.min()
+y_max = btc.global_new_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Volume vs Global COVID new deaths')
+ax1.set_ylabel('Bitcoin Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin volume vs US total cases
+
+x = btc['Date']
+y1 = btc['Close']
+y2 = btc['cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US total cases', color = 'orange')
+g = plt.plot()
+
+y_min = btc.cases.min()
+y_max = btc.cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin volume vs US COVID total cases')
+ax1.set_ylabel('Bitcoin volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin volume vs Global total cases
+
+x = btc['Date']
+y1 = btc['Volume']
+y2 = btc['global_total_cases']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global total cases', color = 'orange')
+g = plt.plot()
+
+y_min = btc.global_total_cases.min()
+y_max = btc.global_total_cases.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Volume vs Globle COVID total cases')
+ax1.set_ylabel('Bitcoin Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin volume vs US total deaths
+
+x = btc['Date']
+y1 = btc['Volume']
+y2 = btc['deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'US total deaths', color = 'orange')
+g = plt.plot()
+
+y_min = btc.deaths.min()
+y_max = btc.deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Volume vs US COVID total deaths')
+ax1.set_ylabel('Bitcoin Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
+
+# Bitcoin volume vs Global total deaths
+
+x = btc['Date']
+y1 = btc['Volume']
+y2 = btc['global_total_deaths']
+fig, ax1 = plt.subplots(figsize=(16, 10))
+ax2 = ax1.twinx()
+curve1 = ax1.plot(x, y1, label= 'Bitcoin daily Volume', color = 'blue')
+curve2 = ax2.plot(x, y2, label= 'Global total deaths', color = 'orange')
+g = plt.plot()
+
+y_min = btc.global_total_deaths.min()
+y_max = btc.global_total_deaths.max()
+for xc in ev:
+  plt.vlines(x=xc, ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2)
+
+plt.vlines(x=pd.to_datetime('2020-01-21'), ymin=y_min, ymax=y_max, colors='green', ls=':', lw=2, label='Covid Events')
+plt.legend(bbox_to_anchor=(1.06, 0.5), loc='center left')
+
+ax1.set_title('Bitcoin Volume vs Global COVID total deaths')
+ax1.set_ylabel('Bitcoin Volume')
+ax2.set_ylabel('Case number')
+ax1.set_xlabel('Month (2020)')
