@@ -43,9 +43,9 @@ Each section of the code already has the import statements stablished for it to 
 
 The data for this project was gathered from the webpage: 
 
-Nasdaq and Bitcoin Data: finance.yahoo.com; Barchart.com
+Nasdaq and Bitcoin Data: https://finance.yahoo.com/; https://www.barchart.com/
 
-COVID-19 Data: shiny.rstudio.com
+COVID-19 Data: https://shiny.rstudio.com/
 
 COVID-19 Event date list: www.theguardian.com
 
