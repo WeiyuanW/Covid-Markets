@@ -1,0 +1,41 @@
+import numpy as np
+import pandas as pd
+from scipy.stats import ttest_ind
+from scipy.stats import mannwhitneyu
+
+nsd_ev = pd.read_excel('Event days Nasdaq data.xlsx')
+btc_ev = pd.read_excel('Event days Bitcoin data.xlsx')
+nsd_no_ev = pd.read_excel('No Event days Nasdaq data.xlsx')
+btc_no_ev = pd.read_excel('No Event days Bitcoin data.xlsx')
+
+# T-tests (normally distributed) for "Nasdaq daily prices change" w/wo events
+ttest_sp = ttest_ind(nsd_ev.price_change, nsd_no_ev.price_change)
+ttest_sp
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for "Nasdaq daily prices change" w/wo events
+stat, p = mannwhitneyu(nsd_ev.price_change, nsd_no_ev.price_change)
+p
+
+# T-tests (normally distributed) for "Bitcoin daily prices change" w/wo events
+ttest_sp = ttest_ind(btc_ev.price_change, btc_no_ev.price_change)
+ttest_sp
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for "Bitcoin daily prices change" w/wo events
+stat, p = mannwhitneyu(btc_ev.price_change, btc_no_ev.price_change)
+p
+
+# T-tests (normally distributed) for "Nasdaq daily volume" w/wo events
+ttest_sp = ttest_ind(nsd_ev.Volume, nsd_no_ev.Volume)
+ttest_sp
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for "Nasdaq daily volume" w/wo events
+stat, p = mannwhitneyu(nsd_ev.Volume, nsd_no_ev.Volume)
+p
+
+# T-tests (normally distributed) for "Bitcoin daily volume" w/wo events
+ttest_sp = ttest_ind(btc_ev.Volume, btc_no_ev.Volume)
+ttest_sp
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for "Bitcoin daily volume" w/wo events
+stat, p = mannwhitneyu(btc_ev.Volume, btc_no_ev.Volume)
+p
