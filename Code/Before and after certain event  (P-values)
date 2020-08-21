@@ -1,0 +1,64 @@
+import numpy as np
+import pandas as pd
+from scipy.stats import mannwhitneyu
+
+nsd = pd.read_excel('Nasdaq vs Covid.xlsx')
+btc = pd.read_excel('Bitcoin vs Covid.xlsx')
+
+**Nasdaq Price change:**
+
+nsd["price_change"] = (nsd.Close - nsd.Open)/nsd.Open
+
+idx = nsd.index.get_loc(nsd[nsd['Date'] == '2020/06/01'].index[0])
+b_idx = nsd.iloc[idx - 5: idx]
+a_idx = nsd.iloc[idx : idx + 5]
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for Nasdaq price change before & after even date "03/06/2020"  
+stat, p = mannwhitneyu(b_idx.price_change, a_idx.price_change)
+p
+
+Conlusion: There is no enough evidence to show that Nasdaq daily price change is significantly different between days before and after COVID event at 03/06/2020.
+We can say this because the pvalue(0.20170) is about our 0.05 alpha, meaning they are not significantly different.
+
+
+**Nasdaq Volume:**
+
+idx = nsd.index.get_loc(nsd[nsd['Date'] == '2020/6/10'].index[0])
+b_idx = nsd.iloc[idx - 5: idx]
+a_idx = nsd.iloc[idx : idx + 5]
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for Nasdaq price change before & after even date "06/10/2020"  
+stat, p = mannwhitneyu(b_idx.Volume, a_idx.Volume)
+p
+
+There is enough evidence that Nasdaq daily volume is significantly different between days before and after COVID event at 06/10/2020.
+We can say this because the pvalue(0.03005) is below our 0.05 alpha, meaning they are significantly different.
+
+**Bitcoin Price change:**
+
+btc["price_change"] = (btc.Close - btc.Open)/btc.Open
+
+idx = btc.index.get_loc(btc[btc['Date'] == '2020/03/13'].index[0])
+b_idx = btc.iloc[idx - 5: idx]
+a_idx = btc.iloc[idx : idx + 5]
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for Bitcoin price change before & after even date "03/13/2020"  
+stat, p = mannwhitneyu(b_idx.price_change, a_idx.price_change)
+p
+
+Conlusion: There is no enough evidence to show that Btcoin daily price change is significantly different between days before and after COVID event at 03/13/2020.
+We can say this because the pvalue(0.10504) is about our 0.05 alpha, meaning they are not significantly different.
+
+
+**Bitcoin Volume:**
+
+idx = btc.index.get_loc(btc[btc['Date'] == '2020/02/06'].index[0])
+b_idx = btc.iloc[idx - 5: idx]
+a_idx = btc.iloc[idx : idx + 5]
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for Nasdaq price change before & after even date "02/06/2020"  
+stat, p = mannwhitneyu(b_idx.Volume, a_idx.Volume)
+p
+
+Conlusion: There is enough evidence to show that Btcoin daily volume is significantly different between days before and after COVID event at 02/06/2020.
+We can say this because the pvalue(0.01836) is below our 0.05 alpha, meaning they are significantly different.
