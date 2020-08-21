@@ -1,0 +1,83 @@
+import numpy as np
+import pandas as pd
+from scipy.stats import ttest_ind
+from scipy.stats import mannwhitneyu
+import datetime
+
+nsd = pd.read_excel('Nasdaq vs Covid.xlsx')
+nsd["price_change"] = (nsd.Close - nsd.Open)/nsd.Open
+
+btc = pd.read_excel('Bitcoin vs Covid.xlsx')
+btc["price_change"] = (btc.Close - btc.Open)/btc.Open
+
+b_ev = pd.read_excel('event list.xlsx')
+b_ev.Date = b_ev.Date + datetime.timedelta(days=-1)
+b_ev.head(3)
+
+a_ev = pd.read_excel('event list.xlsx')
+a_ev.Date = a_ev.Date + datetime.timedelta(days=1)
+a_ev.head(3)
+
+b_ev_nsd = pd.merge(nsd,b_ev,on='Date',how='inner')
+b_ev_nsd.head(3)
+
+n_days = len(b_ev_nsd.index)
+n_days
+
+a_ev_nsd = pd.merge(nsd,a_ev,on='Date',how='inner')
+a_ev_nsd.head(3)
+
+n_days = len(a_ev_nsd.index)
+n_days
+
+b_ev_btc = pd.merge(btc,b_ev,on='Date',how='inner')
+b_ev_btc.head(3)
+
+a_ev_btc = pd.merge(btc,a_ev,on='Date',how='inner')
+a_ev_btc.head(3)
+
+n_days = len(b_ev_btc.index)
+n_days
+
+n_days = len(a_ev_btc.index)
+n_days
+
+Nasdaq price change:
+
+# T-tests (normally distributed) for "Nasdaq daily prices change" before/after events
+ttest_sp = ttest_ind(b_ev_nsd.price_change, a_ev_nsd.price_change)
+ttest_sp
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for "Nasdaq daily prices change" before/after events
+stat, p = mannwhitneyu(b_ev_nsd.price_change, a_ev_nsd.price_change)
+p
+
+Bitcoin price change:
+
+# T-tests (normally distributed) for "Bitcoin daily prices change" before/after events
+ttest_sp = ttest_ind(b_ev_btc.price_change, a_ev_btc.price_change)
+ttest_sp
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for "Bitcoin daily prices change" before/after events
+stat, p = mannwhitneyu(b_ev_btc.price_change, a_ev_btc.price_change)
+p
+
+Nasdaq volume:
+
+# T-tests (normally distributed) for "Nasdaq daily volume" before/after events
+ttest_sp = ttest_ind(b_ev_nsd.Volume, a_ev_nsd.Volume)
+ttest_sp
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for "Nasdaq daily volume" before/after events
+stat, p = mannwhitneyu(b_ev_nsd.Volume, a_ev_nsd.Volume)
+p
+
+Bitcoin volume:
+
+# T-tests (normally distributed) for "Bitcoin daily volume" before/after events
+ttest_sp = ttest_ind(b_ev_btc.Volume, a_ev_btc.Volume)
+ttest_sp
+
+# Mann-Whitney-Wilcoxon Test (not normal distributed) for "Bitcoin daily volume" before/after events
+stat, p = mannwhitneyu(b_ev_btc.Volume, a_ev_btc.Volume)
+p
