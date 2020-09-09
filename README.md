@@ -92,9 +92,13 @@ There is enough evidence that Bitcoin price change is significantly different be
 
 ## Authors
 Giovanny Ruiz
+
 Karina Quiroga
+
 Maria del mar Del Valle
+
 Weiyuan Wu
+
 Sean Mondesire, Ph.D   
 
 
