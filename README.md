@@ -75,6 +75,19 @@ In the next study, we will include more data to exam our hypothesis. We are stil
 
 ## Visualizations
 
+<details>
+           <summary>Bitcoin price & COVID events visualization</summary>
+           <p>
+                      
+There is enough evidence that Bitcoin price change is significantly different between days with COVID events and without COVID events. We can say this because the p-value(0.04027) is below our 0.05 alpha, meaning they are significantly different.
+        
+
+![alt text](https://github.com/WeiyuanW/Covid-Markets/blob/master/Images/Bitcoin%20Close%20vs%20Global%20COVID%20new%20cases.png?raw=true)
+
+![alt text](https://github.com/WeiyuanW/Covid-Markets/blob/master/Tables/P-values%20Table%20for%20With%20vs%20Without%20COVID%20Event%20days.png?raw=true)
+
+</p>
+</details>
          
 
 ## Authors
