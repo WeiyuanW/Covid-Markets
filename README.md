@@ -79,6 +79,10 @@ Presentation Video:
 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/ZYBPsqlrq7Y/0.jpg)](https://www.youtube.com/watch?v=ZYBPsqlrq7Y&feature=youtu.be)
 
+linnk to Poster:
+
+https://docs.google.com/presentation/d/1j4b3aqRRR1xLu3t1Gy3XlGKBECNshZe_3gj7p06QbII/edit?usp=sharing 
+
 <details>
            <summary>Bitcoin price & COVID events visualization</summary>
            <p>
