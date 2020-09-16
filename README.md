@@ -75,8 +75,7 @@ In the next study, we will include more data to exam our hypothesis. We are stil
 
 ## Visualizations
 
-![alt text](https://www.youtube.com/watch?v=ZYBPsqlrq7Y&feature=youtu.be?raw=true)
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=ZYBPsqlrq7Y&feature=youtu.be)
 
 <details>
            <summary>Bitcoin price & COVID events visualization</summary>
