@@ -75,6 +75,8 @@ In the next study, we will include more data to exam our hypothesis. We are stil
 
 ## Visualizations
 
+Presentation Video:
+
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/ZYBPsqlrq7Y/0.jpg)](https://www.youtube.com/watch?v=ZYBPsqlrq7Y&feature=youtu.be)
 
 <details>
