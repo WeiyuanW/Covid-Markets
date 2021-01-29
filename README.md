@@ -16,6 +16,10 @@ Has COVID-19 cases and deaths affected the stock and cryptocurrency markets?
 
 
 ## Background
+This pandemic hit the world and changed our lives as usual. One thing that has fluctuated since the beginning of the pandemic is the stock market and cryptocurrency.
+The stock market serves as an insight of what is going on financially in the companies involved around the globe. Nasdaq index is an aggregated price from all the companies listed in the exchange and can be used as an indicator as to how the U.S corporations doing in general. Bitcoin is one of the most successful cryptocurrencies in the market, so much that China has started a pilot for their own cryptocurrency.
+
+Most of the population in the world does not own shares but are still affected. For example, a non-shareholder individual can have a private pension that invests in the stock market or in cryptocurrency and therefore his/her pension is directly affected. Also, in times of crisis some investors lose their confidence and willingness to participate in the stock market due to uncertainty of what may occur next.
 
 
 ## Prerequisites
